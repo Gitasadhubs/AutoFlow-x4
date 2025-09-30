@@ -3,7 +3,7 @@ services:
     image: php:8.4-cli
     working_dir: /var/www/html
     volumes:
-      - .:/var/www/html:cached
+      - .:/var/www/html
       - dev_backups_data:/var/www/html/storage/app/backups
     env_file:
       - .env
@@ -73,7 +73,7 @@ services:
     ports:
       - "${VITE_PORT:-5173}:${VITE_PORT:-5173}"
     volumes:
-      - .:/var/www/html/:cached
+      - .:/var/www/html
     command: sh -c "npm install && npm run dev"
   mailpit:
     image: axllent/mailpit:latest

@@ -54,7 +54,7 @@ fi
 
 # Step 2: Build and start all Docker containers
 echo "🐳 Building and starting Docker containers..."
-docker-compose -f docker-compose.dev.yml up -d --build
+docker-compose -f docker-compose.yml up -d --build
 
 # Wait for containers to be healthy
 echo "⏳ Waiting for services to start..."
@@ -62,11 +62,11 @@ sleep 30
 
 # Step 3: Install Laravel dependencies
 echo "📦 Installing Laravel dependencies..."
-docker exec coolify composer install --no-interaction
+docker exec autoflow composer install --no-interaction
 
 # Step 4: Run database migrations
 echo "🗄️  Running database migrations..."
-docker exec coolify php artisan migrate --force
+docker exec autoflow php artisan migrate --force
 
 # Step 5: Open AutoFlow frontend in default browser
 echo "🌐 Opening AutoFlow in browser..."
@@ -87,4 +87,4 @@ echo "🔐 Default login:"
 echo "   Email: test@example.com"
 echo "   Password: password"
 echo ""
-echo "🛑 To stop all services: docker-compose -f docker-compose.dev.yml down"
+echo "🛑 To stop all services: docker-compose -f docker-compose.yml down"
