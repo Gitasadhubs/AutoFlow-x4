@@ -1,4 +1,4 @@
-# Coolify Technology Stack
+# AutoFlow Technology Stack
 
 ## Frontend
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Coolify is an open-source, self-hostable platform for deploying applications and managing servers - an alternative to Heroku/Netlify/Vercel. It's built with Laravel (PHP) and uses Docker for containerization.
+AutoFlow is an open-source, self-hostable platform for deploying applications and managing servers - an alternative to Heroku/Netlify/Vercel. It's built with Laravel (PHP) and uses Docker for containerization.
 
 ## Development Commands
 
@@ -39,7 +39,7 @@ Only run artisan commands inside "coolify" container when in development.
 
 #### Core Models
 - `Application` - Deployed applications with Git integration (74KB, highly complex)
-- `Server` - Remote servers managed by Coolify (46KB, complex)
+- `Server` - Remote servers managed by AutoFlow (46KB, complex)
 - `Service` - Docker Compose services (58KB, complex)
 - `Database` - Standalone database instances (PostgreSQL, MySQL, MongoDB, Redis, etc.)
 - `Team` - Multi-tenancy support
@@ -79,7 +79,7 @@ Only run artisan commands inside "coolify" container when in development.
 ## Development Guidelines
 
 ### Frontend Philosophy
-Coolify uses a **server-side first** approach with minimal JavaScript:
+AutoFlow uses a **server-side first** approach with minimal JavaScript:
 - **Livewire** for server-side rendering with reactive components
 - **Alpine.js** for lightweight client-side interactions
 - **Tailwind CSS** for utility-first styling with dark mode support
@@ -201,7 +201,7 @@ class MyComponent extends Component
 
 ## Cloud Instance Considerations
 
-We have a cloud instance of Coolify (hosted version) with:
+We have a cloud instance of AutoFlow (hosted version) with:
 - 2 Horizon worker servers
 - Thousands of connected servers
 - Thousands of active users

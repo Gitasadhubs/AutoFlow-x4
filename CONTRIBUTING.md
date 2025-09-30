@@ -1,4 +1,4 @@
-# Contributing to Coolify
+# Contributing to AutoFlow
 
 > "First, thanks for considering contributing to my project. It really means a lot!" - [@andrasbacsai](https://github.com/andrasbacsai)
 
@@ -12,7 +12,7 @@ To understand the tech stack, please refer to the [Tech Stack](TECH_STACK.md) do
 2. [Verify Installation](#2-verify-installation-optional)
 3. [Fork and Setup Local Repository](#3-fork-and-setup-local-repository)
 4. [Set up Environment Variables](#4-set-up-environment-variables)
-5. [Start Coolify](#5-start-coolify)
+5. [Start AutoFlow](#5-start-coolify)
 6. [Start Development](#6-start-development)
 7. [Create a Pull Request](#7-create-a-pull-request)
 8. [Development Notes](#development-notes)
@@ -82,7 +82,7 @@ After installing Docker (or Orbstack) and Spin, verify the installation:
 
 ## 3. Fork and Setup Local Repository
 
-1. Fork the [Coolify](https://github.com/coollabsio/coolify) repository to your GitHub account.
+1. Fork the [AutoFlow](https://github.com/coollabsio/coolify) repository to your GitHub account.
 
 2. Install a code editor on your machine (choose one):
 
@@ -92,26 +92,26 @@ After installing Docker (or Orbstack) and Spin, verify the installation:
    | Cursor (recommended but paid) | Windows/macOS/Linux | [Download](https://www.cursor.com/?ref=coolify) |
    | Zed (very fast) | macOS/Linux | [Download](https://zed.dev/download?ref=coolify) |
 
-3. Clone the Coolify Repository from your fork to your local machine
+3. Clone the AutoFlow Repository from your fork to your local machine
    - Use `git clone` in the command line, or
    - Use GitHub Desktop (recommended):
      - Download and install from [https://desktop.github.com/](https://desktop.github.com/?ref=coolify)
      - Open GitHub Desktop and login with your GitHub account
-     - Click on `File` -> `Clone Repository` select `github.com` as the repository location, then select your forked Coolify repository, choose the local path and then click `Clone`
+     - Click on `File` -> `Clone Repository` select `github.com` as the repository location, then select your forked AutoFlow repository, choose the local path and then click `Clone`
 
-4. Open the cloned Coolify Repository in your chosen code editor.
+4. Open the cloned AutoFlow Repository in your chosen code editor.
 
 ## 4. Set up Environment Variables
 
-1. In the Code Editor, locate the `.env.development.example` file in the root directory of your local Coolify repository.
+1. In the Code Editor, locate the `.env.development.example` file in the root directory of your local AutoFlow repository.
 2. Duplicate the `.env.development.example` file and rename the copy to `.env`.
 3. Open the new `.env` file and review its contents. Adjust any environment variables as needed for your development setup.
 4. If you encounter errors during database migrations, update the database connection settings in your `.env` file. Use the IP address or hostname of your PostgreSQL database container. You can find this information by running `docker ps` after executing `spin up`.
 5. Save the changes to your `.env` file.
 
-## 5. Start Coolify
+## 5. Start AutoFlow
 
-1. Open a terminal in the local Coolify directory.
+1. Open a terminal in the local AutoFlow directory.
 2. Run the following command in the terminal (leave that terminal open):
    ```bash
    spin up
@@ -130,7 +130,7 @@ After installing Docker (or Orbstack) and Spin, verify the installation:
 
 ## 6. Start Development
 
-1. Access your Coolify instance:
+1. Access your AutoFlow instance:
    - URL: `http://localhost:8000`
    - Login: `test@example.com`
    - Password: `password`
@@ -156,7 +156,7 @@ After installing Docker (or Orbstack) and Spin, verify the installation:
    - Push the changes to your GitHub account.
 
 2. Creating the Pull Request (PR):
-   - Navigate to the main Coolify repository on GitHub.
+   - Navigate to the main AutoFlow repository on GitHub.
    - Click the "Pull requests" tab.
    - Click the green "New pull request" button.
    - Choose your fork and branch as the compare branch.
@@ -167,7 +167,7 @@ After installing Docker (or Orbstack) and Spin, verify the installation:
    - Use the Pull Request Template provided and fill in the details.
 
 > [!IMPORTANT]
-> Always set the base branch for your PR to the `next` branch of the Coolify repository, not the `main` branch.
+> Always set the base branch for your PR to the `next` branch of the AutoFlow repository, not the `main` branch.
 
 4. Submit your PR:
    - Review your changes one last time.
@@ -180,7 +180,7 @@ After submission, maintainers will review your PR and may request changes or pro
 
 ## Development Notes
 
-When working on Coolify, keep the following in mind:
+When working on AutoFlow, keep the following in mind:
 
 1. **Database Migrations**: After switching branches or making changes to the database structure, always run migrations:
    ```bash
@@ -203,12 +203,12 @@ If you encounter issues or break your database or something else, follow these s
 
 1. Stop all running containers `ctrl + c`.
 
-2. Remove all Coolify containers:
+2. Remove all AutoFlow containers:
    ```bash
    docker rm coolify coolify-db coolify-redis coolify-realtime coolify-testing-host coolify-minio coolify-vite-1 coolify-mail
    ```
 
-3. Remove Coolify volumes (it is possible that the volumes have no `coolify` prefix on your machine, in that case remove the prefix from the command):
+3. Remove AutoFlow volumes (it is possible that the volumes have no `coolify` prefix on your machine, in that case remove the prefix from the command):
    ```bash
    docker volume rm coolify_dev_backups_data coolify_dev_postgres_data coolify_dev_redis_data coolify_dev_coolify_data coolify_dev_minio_data
    ```
@@ -218,7 +218,7 @@ If you encounter issues or break your database or something else, follow these s
    docker image prune -a
    ```
 
-5. Start Coolify again:
+5. Start AutoFlow again:
    ```bash
    spin up
    ```
@@ -237,10 +237,10 @@ After completing these steps, you'll have a fresh development setup.
 
 ### Contributing a New Service
 
-To add a new service to Coolify, please refer to our documentation:
+To add a new service to AutoFlow, please refer to our documentation:
 [Adding a New Service](https://coolify.io/docs/get-started/contribute/service)
 
 ### Contributing to Documentation
 
-To contribute to the Coolify documentation, please refer to this guide:
-[Contributing to the Coolify Documentation](https://github.com/coollabsio/documentation-coolify/blob/main/readme.md)
+To contribute to the AutoFlow documentation, please refer to this guide:
+[Contributing to the AutoFlow Documentation](https://github.com/coollabsio/documentation-coolify/blob/main/readme.md)

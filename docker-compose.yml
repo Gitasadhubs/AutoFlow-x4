@@ -1,37 +1,111 @@
 services:
-    coolify:
-        container_name: coolify
-        restart: always
-        working_dir: /var/www/html
-        extra_hosts:
-            - host.docker.internal:host-gateway
-        networks:
-            - coolify
-        depends_on:
-            - postgres
-            - redis
-            - soketi
-    postgres:
-        image: postgres:15-alpine
-        container_name: coolify-db
-        restart: always
-        networks:
-            - coolify
-    redis:
-        image: redis:7-alpine
-        container_name: coolify-redis
-        restart: always
-        networks:
-            - coolify
-    soketi:
-        container_name: coolify-realtime
-        extra_hosts:
-            - host.docker.internal:host-gateway
-        restart: always
-        networks:
-            - coolify
+  autoflow:
+    image: php:8.4-cli
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html:cached
+      - dev_backups_data:/var/www/html/storage/app/backups
+    env_file:
+      - .env
+    command: sh -c "apt-get update && apt-get install -y git unzip && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && composer install && php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0 --port=8080"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - coolify
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+      - .:/var/www/html:ro
+    depends_on:
+      - autoflow
+      - vite
+    networks:
+      - coolify
+  postgres:
+    image: postgres:15-alpine
+    pull_policy: always
+    ports:
+      - "${FORWARD_DB_PORT:-5432}:5432"
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: "${DB_USERNAME:-autoflow}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD:-password}"
+      POSTGRES_DB: "${DB_DATABASE:-autoflow}"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    volumes:
+      - dev_postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis:7-alpine
+    pull_policy: always
+    ports:
+      - "${FORWARD_REDIS_PORT:-6379}:6379"
+    env_file:
+      - .env
+    volumes:
+      - dev_redis_data:/data
+  soketi:
+    build:
+      context: .
+      dockerfile: ./docker/coolify-realtime/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "${FORWARD_SOKETI_PORT:-6001}:6001"
+      - "6002:6002"
+    volumes:
+      - ./storage:/var/www/html/storage
+      - ./docker/coolify-realtime/terminal-server.js:/terminal/terminal-server.js
+    environment:
+      SOKETI_DEBUG: "false"
+      SOKETI_DEFAULT_APP_ID: "${PUSHER_APP_ID:-autoflow}"
+      SOKETI_DEFAULT_APP_KEY: "${PUSHER_APP_KEY:-autoflow}"
+      SOKETI_DEFAULT_APP_SECRET: "${PUSHER_APP_SECRET:-autoflow}"
+    entrypoint: ["/bin/sh", "/soketi-entrypoint.sh"]
+  vite:
+    image: node:24-alpine
+    pull_policy: always
+    working_dir: /var/www/html
+    environment:
+      VITE_HOST: "${VITE_HOST:-localhost}"
+      VITE_PORT: "${VITE_PORT:-5173}"
+    ports:
+      - "${VITE_PORT:-5173}:${VITE_PORT:-5173}"
+    volumes:
+      - .:/var/www/html/:cached
+    command: sh -c "npm install && npm run dev"
+  mailpit:
+    image: axllent/mailpit:latest
+    pull_policy: always
+    container_name: autoflow-mail
+    ports:
+      - "${FORWARD_MAILPIT_PORT:-1025}:1025"
+      - "${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025"
+  minio:
+    image: minio/minio:latest
+    pull_policy: always
+    container_name: autoflow-minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "${FORWARD_MINIO_PORT:-9000}:9000"
+      - "${FORWARD_MINIO_PORT_CONSOLE:-9001}:9001"
+    environment:
+      MINIO_ACCESS_KEY: "${MINIO_ACCESS_KEY:-minioadmin}"
+      MINIO_SECRET_KEY: "${MINIO_SECRET_KEY:-minioadmin}"
+    volumes:
+      - dev_minio_data:/data
+
+volumes:
+  dev_backups_data:
+  dev_postgres_data:
+  dev_redis_data:
+  dev_minio_data:
+
 networks:
-    coolify:
-        name: coolify
-        driver: bridge
-        external: false
+  coolify:
+    name: coolify
+    external: false

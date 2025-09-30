@@ -1,11 +1,11 @@
 openapi: 3.1.0
 info:
-  title: Coolify
+  title: AutoFlow
   version: '0.1'
 servers:
   -
     url: 'https://app.coolify.io/api/v1'
-    description: 'Coolify Cloud API. Change the host to your own instance if you are self-hosting.'
+    description: 'AutoFlow Cloud API. Change the host to your own instance if you are self-hosting.'
 paths:
   /applications:
     get:
@@ -3351,7 +3351,7 @@ paths:
   /version:
     get:
       summary: Version
-      description: 'Get Coolify version.'
+      description: 'Get AutoFlow version.'
       operationId: version
       responses:
         '200':
@@ -5311,7 +5311,7 @@ components:
           description: 'The date and time when the application was deleted.'
         compose_parsing_version:
           type: string
-          description: 'How Coolify parse the compose file.'
+          description: 'How AutoFlow parse the compose file.'
         custom_nginx_configuration:
           type: string
           nullable: true
@@ -5639,7 +5639,7 @@ components:
           description: 'The raw docker-compose.yml file of the service.'
         docker_compose:
           type: string
-          description: 'The docker-compose.yml file that is parsed and modified by Coolify.'
+          description: 'The docker-compose.yml file that is parsed and modified by AutoFlow.'
         destination_type:
           type: string
           description: 'Destination type.'
