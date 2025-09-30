@@ -7,7 +7,7 @@ services:
       - dev_backups_data:/var/www/html/storage/app/backups
     env_file:
       - .env
-    command: sh -c "apt-get update && apt-get install -y git unzip && docker-php-ext-install pcntl zip && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && composer install --ignore-platform-req=ext-pcntl --ignore-platform-req=ext-zip && php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0 --port=8080"
+    command: sh -c "apt-get update && apt-get install -y git unzip libzip-dev && docker-php-ext-install pcntl zip && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && composer install --ignore-platform-req=ext-pcntl --ignore-platform-req=ext-zip && php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0 --port=8080"
     depends_on:
       - postgres
       - redis
