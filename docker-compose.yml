@@ -49,7 +49,7 @@ services:
     volumes:
       - dev_redis_data:/data
   soketi:
-    image: ghcr.io/soketi/soketi:latest
+    image: quay.io/soketi/soketi:latest
     env_file:
       - .env
     ports:
