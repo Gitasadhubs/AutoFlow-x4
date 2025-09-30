@@ -1,62 +1,70 @@
 # AutoFlow FYP Demo Checklist
 
-## Pre-Demo Preparation
-- [ ] Ensure local setup script has been run and all services are running
-- [ ] Verify AutoFlow is accessible at http://localhost:8000
-- [ ] Confirm rebranded "AutoFlow" logo and name are displayed consistently
-- [ ] Test login with default credentials (test@example.com / password)
-- [ ] Prepare any optional demo data (e.g., sample projects/deployments if needed)
+This checklist will guide you through a smooth and interactive demo presentation of AutoFlow.
 
-## Demo Script
+---
 
-### 1. Introduction & Dashboard
-- [ ] Open browser to http://localhost:8000
-- [ ] Login with test@example.com / password
-- [ ] Navigate to Dashboard
-- [ ] Explain AutoFlow's purpose: "AutoFlow is an open-source alternative to Heroku/Netlify/Vercel for self-hosting applications"
-- [ ] Highlight key features: project management, deployment tracking, real-time logs
-- [ ] Show projects overview and current deployment status
+## 1. Open AutoFlow in Browser
 
-### 2. Deployments Section
-- [ ] Click on "Deployments" in the navigation
-- [ ] Demonstrate deployment logs display
-- [ ] Show real-time updates (if any active deployments)
-- [ ] Explain deployment actions available (start, stop, redeploy)
-- [ ] Mention integration with GitHub/CI for automated deployments
+- Open your default browser and navigate to: [http://localhost:8000](http://localhost:8000)
+- Verify the AutoFlow dashboard loads successfully.
 
-### 3. Settings & Environment Variables
-- [ ] Navigate to Settings
-- [ ] Show environment variables management
-- [ ] Demonstrate changing a variable (e.g., APP_NAME)
-- [ ] Explain how settings affect application behavior
-- [ ] Show save/reload functionality
+## 2. Dashboard Overview
 
-### 4. Additional Pages
-- [ ] Visit About page - explain project background and open-source nature
-- [ ] Check Help page - show documentation links
-- [ ] View Contact page - mention community support options
+- Show the dashboard page.
+- Explain the project overview: list of projects, deployment statuses.
+- Highlight the rebranded AutoFlow logo and name on the page.
 
-### 5. Optional: Trigger Test Deployment
-- [ ] If GitHub/CI tokens are configured, demonstrate triggering a deployment
-- [ ] Show real-time log streaming during deployment
-- [ ] Explain monitoring and rollback capabilities
+## 3. Deployments Page
 
-## Demo Tips for Smooth Presentation
-- Speak clearly and at a moderate pace
-- Pause after each major action to explain what's happening
-- Use the mouse pointer to highlight important UI elements
-- Prepare 2-3 backup explanations for technical questions
-- Have the browser window maximized for better visibility
-- Test the demo flow at least once before actual presentation
-- If something doesn't work, have a graceful fallback explanation
+- Navigate to the Deployments section.
+- Demonstrate viewing deployment logs.
+- Show real-time updates of deployment status.
+- Explain deployment actions available.
 
-## Post-Demo
-- [ ] Stop all services: `docker-compose -f docker-compose.dev.yml down`
-- [ ] Thank the audience and open for questions
-- [ ] Mention future development plans or contribution opportunities
+## 4. Settings Page
 
-## Technical Notes
-- Backend: Laravel 11 + PostgreSQL + Redis + Soketi
-- Frontend: Blade templates + Livewire + Alpine.js + Tailwind CSS
-- Infrastructure: Docker containers with Nginx web server
-- Real-time features powered by WebSockets and Redis
+- Open the Settings page.
+- Demonstrate changing environment variables.
+- Show how settings affect the application.
+
+## 5. About / Help / Contact Pages
+
+- Navigate to the About page and explain the project documentation.
+- Visit the Help page to show available resources.
+- Check the Contact page for support information.
+
+## 6. Optional: Trigger a Test Deployment
+
+- If GitHub/CI tokens are configured, demonstrate triggering a deployment.
+- Show the deployment process in real-time.
+
+---
+
+## Demo Tips
+
+- **Preparation**: Run the setup script beforehand to ensure all services are running.
+- **Pacing**: Take your time explaining each feature, don't rush.
+- **Interaction**: Ask the audience questions to keep them engaged.
+- **Technical Notes**: Be prepared to explain the tech stack (Laravel, PostgreSQL, Redis, Docker).
+- **Troubleshooting**: Have the README_LOCAL_SETUP.md ready for any issues.
+
+---
+
+## Services Running
+
+- AutoFlow: http://localhost:8000
+- PostgreSQL: localhost:5432
+- Redis: localhost:6379
+- Soketi (WebSocket): localhost:6001
+- Vite (Dev Server): localhost:5173
+- Mailpit: localhost:8025
+- MinIO: localhost:9000
+
+---
+
+## Stop Services After Demo
+
+Run: `docker-compose down`
+
+This will stop and remove all containers.

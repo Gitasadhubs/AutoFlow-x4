@@ -1,61 +1,85 @@
 # AutoFlow Local Setup and Demo Instructions
 
+This document provides instructions to set up AutoFlow locally for demo and FYP presentation purposes.
+
+---
+
+## Prerequisites
+
+- Docker and Docker Compose installed on your machine.
+- Git installed.
+- Bash shell available.
+
+---
+
 ## One-Command Local Setup
 
-Run the following command in the root directory of the project to set up the complete local environment:
+Run the provided setup script to configure environment, build containers, install dependencies, run migrations, and open the frontend:
 
 ```bash
 ./setup_local.sh
 ```
 
 This script will:
-- Configure `.env` for local PostgreSQL, Redis, and Laravel app
-- Build and start all Docker containers (`docker-compose.dev.yml`)
-- Install Laravel dependencies (`composer install`)
-- Run database migrations (`php artisan migrate`)
-- Open AutoFlow frontend in your default browser at `http://localhost:8000`
+
+1. Configure `.env` for local PostgreSQL, Redis, and Laravel app.
+2. Build and start all Docker containers.
+3. Install Laravel dependencies using Composer.
+4. Run database migrations.
+5. Open AutoFlow frontend in your default browser at [http://localhost:8000](http://localhost:8000).
 
 ---
 
-## Verifying Frontend
+## Verify Services
 
-- The frontend uses Blade, Livewire, and Alpine.js.
-- Verify the dashboard shows projects and deployment status.
-- Check the Deployments page for logs and real-time updates.
-- Confirm the Settings page allows changing environment variables.
-- Visit About, Help, and Contact pages to verify content.
-- Ensure the AutoFlow logo and name are displayed consistently.
+Ensure the following services are running:
 
----
+- PostgreSQL on port 5432
+- Redis on port 6379
+- AutoFlow Laravel app on port 8000
+- Soketi WebSocket server on port 6001
+- Vite development server on port 5173
+- Mailpit email testing on port 8025
+- MinIO object storage on port 9000
 
-## Stopping Services After Demo
-
-To stop all running services after your demo, run:
+You can check running containers with:
 
 ```bash
-docker-compose -f docker-compose.dev.yml down
+docker ps
 ```
-
----
-
-## FYP Demo Checklist
-
-Please refer to the `FYP_DEMO_CHECKLIST.md` file for a detailed step-by-step guide to presenting AutoFlow smoothly.
 
 ---
 
 ## Troubleshooting
 
-- If you encounter issues with database migrations, try running:
+- If the Laravel container fails to start due to missing PHP extensions, ensure the Dockerfile or container installs `php-pcntl` and `php-zip`.
+- If you encounter permission or ownership issues with the repository inside the container, run:
 
 ```bash
-docker exec coolify php artisan migrate --force
+git config --global --add safe.directory /var/www/html
 ```
 
-- If services fail to start, try stopping all containers and volumes, then rerun the setup script.
+- If the Nginx container fails to start due to missing or incorrect `nginx.conf`, ensure the `nginx.conf` file exists in the project root and is correctly mounted.
 
 ---
 
-## Support
+## Stopping Services
 
-For further assistance, please refer to the project documentation or community support channels.
+To stop all running containers and clean up, run:
+
+```bash
+docker-compose down
+```
+
+---
+
+## Additional Notes
+
+- The frontend uses Blade, Livewire, and Alpine.js.
+- Backend is Laravel 11 with PostgreSQL and Redis.
+- Real-time features use Soketi WebSocket server.
+- Use the `FYP_DEMO_CHECKLIST.md` for a step-by-step demo guide.
+
+---
+
+Thank you for using AutoFlow for your FYP demo!

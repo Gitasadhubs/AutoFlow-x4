@@ -62,11 +62,11 @@ sleep 30
 
 # Step 3: Install Laravel dependencies
 echo "📦 Installing Laravel dependencies..."
-docker exec autoflow composer install --no-interaction
+docker exec autoflow-x4-autoflow-1 composer install --no-interaction
 
 # Step 4: Run database migrations
 echo "🗄️  Running database migrations..."
-docker exec autoflow php artisan migrate --force
+docker exec autoflow-x4-autoflow-1 php artisan migrate --force
 
 # Step 5: Open AutoFlow frontend in default browser
 echo "🌐 Opening AutoFlow in browser..."
